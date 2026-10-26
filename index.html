@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>The Pizzary Google Check</title>
+<link rel="icon" href="assets/logo/favicon.png">
+<script>document.documentElement.classList.add('js')</script>
+<style>
+/* The Pizzary Google Check. Look nach CI Handbuch Juni 2026: Base, Cheesy, Tomato red, Veggie greens, Berlin Sky, Urban Pink, Schwarz.
+   Zackenkanten, Chamfer Karten, Bright Dreams nur als laute Headline, Bisko fuer Handschrift. Mobile first. */
+@font-face{font-family:"Bright Dreams";src:url("assets/fonts/BrightDreams-Regular.ttf") format("truetype");font-display:swap}
+@font-face{font-family:"Bisko";src:url("assets/fonts/Bisko.otf") format("opentype");font-display:swap}
+:root{
+  --base:#F4F4ED;--herobg:#6887DD;--cheesy:#F5F5AF;--gold:#FFC31E;--red:#BE2337;--sky:#7D82D9;--pink:#DE7DCE;--green:#AFCDAF;--ink:#000;
+  --f-house:"Ariana Pro","Avenir Next","Avenir","Montserrat","Helvetica Neue",Arial,sans-serif;
+  --f-loud:"Bright Dreams","Arial Black",Impact,sans-serif;
+  --f-hand:"Bisko","Comic Sans MS","Segoe Print",cursive;
+  --pad:clamp(18px,5vw,64px);
+  --zz:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='22' viewBox='0 0 44 22'%3E%3Cpath d='M0 22 L11 0 L22 22 L33 0 L44 22Z'/%3E%3C/svg%3E");
+  --burst:polygon(50% 1.3%,58% 14.7%,71.4% 5.5%,72.7% 21.6%,89.6% 18.4%,81% 35.1%,96.4% 39.4%,87.2% 50%,97.6% 60.9%,81.6% 65.2%,91% 82.7%,72.4% 78.1%,72.4% 96.6%,58% 85%,50% 99.7%,42.3% 83.9%,28% 95.7%,26.7% 79.2%,10.8% 81.2%,16.8% 66%,0.4% 61.3%,15.6% 50%,0.5% 38.6%,17.3% 34.2%,11.7% 19.4%,28.6% 23.2%,27.5% 3.3%,42% 15%);
+  --chamfer:polygon(0 0,calc(100% - 24px) 0,100% 24px,100% 100%,24px 100%,0 calc(100% - 24px));
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-snap-type:y proximity;scroll-behavior:smooth}
+html,body{margin:0;padding:0}
+body{background:var(--herobg);color:var(--ink);font:400 1rem/1.55 var(--f-house);overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+h1,h2,h3,p,ul{margin:0}
+ul{padding:0;list-style:none}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+
+/* Folien */
+.slide{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:center;scroll-snap-align:start;
+  padding:clamp(84px,11vw,130px) var(--pad) clamp(64px,9vw,110px);background:var(--bgc);color:var(--fg)}
+.slide:not(:first-of-type)::before{content:"";position:absolute;left:0;right:0;top:0;height:22px;transform:translateY(-99%);background:var(--bgc);
+  -webkit-mask:var(--zz) repeat-x bottom/44px 22px;mask:var(--zz) repeat-x bottom/44px 22px;pointer-events:none}
+.wrap{width:100%;max-width:1120px;margin:0 auto}
+.s-blue{--bgc:var(--herobg);--fg:#000;--head:#fff;--tagbg:var(--cheesy);--tagfg:#000;--card:var(--base);--fill:var(--cheesy)}
+.s-cheesy{--bgc:var(--cheesy);--fg:#000;--head:#000;--tagbg:var(--red);--tagfg:var(--cheesy);--card:var(--base);--fill:var(--red)}
+.s-base{--bgc:var(--base);--fg:#000;--head:#000;--tagbg:var(--herobg);--tagfg:#fff;--card:#fff;--fill:var(--herobg)}
+.s-red{--bgc:var(--red);--fg:var(--cheesy);--head:var(--cheesy);--tagbg:var(--cheesy);--tagfg:#000;--card:var(--base);--fill:var(--gold)}
+.s-green{--bgc:var(--green);--fg:#000;--head:#000;--tagbg:#000;--tagfg:var(--cheesy);--card:var(--base);--fill:var(--red)}
+.s-pink{--bgc:var(--pink);--fg:#000;--head:#000;--tagbg:#000;--tagfg:var(--cheesy);--card:var(--base);--fill:#000}
+.s-ink{--bgc:#000;--fg:var(--cheesy);--head:var(--cheesy);--tagbg:var(--red);--tagfg:var(--cheesy);--card:#1b1b1b;--fill:var(--gold)}
+
+.k{display:inline-block;font-family:var(--f-hand);text-transform:uppercase;letter-spacing:.02em;font-size:clamp(1.05rem,2.5vw,1.55rem);
+  background:var(--tagbg);color:var(--tagfg);padding:.12em .7em;transform:rotate(-2.5deg);margin-bottom:12px}
+.h{font-family:var(--f-loud);font-weight:400;text-transform:uppercase;letter-spacing:.01em;color:var(--head);
+  font-size:clamp(2.3rem,8.2vw,5.4rem);line-height:.92;margin:4px 0 20px}
+.h.big{font-size:clamp(3.2rem,15vw,9rem);line-height:.88}
+.lead{font-size:clamp(1.02rem,1.9vw,1.3rem);max-width:60ch;font-weight:500}
+.lead+.lead{margin-top:12px}
+.small{font-size:.86rem;opacity:.85}
+.hand{font-family:var(--f-hand);text-transform:uppercase;letter-spacing:.02em}
+.grid{display:grid;gap:18px;margin-top:30px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr))}
+.split{display:grid;gap:34px;align-items:center;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));margin-top:28px}
+
+/* Karten, Stats, Burst */
+.card{background:var(--card);color:#000;padding:22px 22px 24px;clip-path:var(--chamfer)}
+.s-ink .card{color:var(--cheesy)}
+.card h3{font-weight:900;text-transform:uppercase;letter-spacing:-.005em;font-size:1.08rem;line-height:1.05;margin-bottom:8px}
+.card p,.card li{font-size:.97rem}
+.card li{padding-left:1.1em;position:relative;margin:5px 0}
+.card li::before{content:"";position:absolute;left:0;top:.6em;width:.55em;height:.55em;background:var(--red);clip-path:polygon(0 0,100% 50%,0 100%)}
+.card.good li::before{background:#2f7d3a}
+.stat b{display:block;font-family:var(--f-loud);font-weight:400;font-size:clamp(2.6rem,7vw,4.4rem);line-height:.95;color:var(--head)}
+.stat span{display:block;font-weight:700;font-size:.95rem;margin-top:4px}
+.burst{clip-path:var(--burst);aspect-ratio:1;display:grid;place-items:center;text-align:center;padding:14%;background:var(--gold);color:#000}
+.burst b{display:block;font-family:var(--f-loud);font-weight:400;font-size:clamp(1.9rem,4.4vw,3rem);line-height:.92}
+.burst span{display:block;font-weight:800;font-size:.86rem;line-height:1.15;margin-top:4px;text-transform:uppercase}
+.b-red{background:var(--red);color:var(--cheesy)}.b-sky{background:var(--sky);color:#fff}.b-pink{background:var(--pink)}.b-green{background:var(--green)}
+.bursts{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));max-width:760px;margin:30px 0 8px}
+
+/* Balken */
+.row{display:grid;grid-template-columns:minmax(110px,34%) 1fr 74px;gap:12px;align-items:center;margin:9px 0;font-weight:700;font-size:.95rem}
+.row .n{text-align:right;font-variant-numeric:tabular-nums}
+.track{height:22px;background:rgba(0,0,0,.14);clip-path:polygon(0 0,100% 0,calc(100% - 8px) 100%,0 100%)}
+.s-ink .track,.s-red .track{background:rgba(255,255,255,.18)}
+.fill{height:100%;width:0;background:var(--fill);transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+.in .fill{width:var(--w)}
+.row.hot .fill{background:var(--red)}
+
+/* Donut */
+.donut{position:relative;width:min(66vw,300px);aspect-ratio:1;border-radius:50%;margin:0 auto;
+  background:conic-gradient(var(--red) 0 93.2%,var(--gold) 93.2% 97.1%,var(--sky) 97.1% 98.6%,#000 98.6% 100%)}
+.donut::after{content:"93 %";position:absolute;inset:23%;border-radius:50%;background:var(--bgc);display:grid;place-items:center;font-family:var(--f-loud);font-size:clamp(2.2rem,8vw,3.2rem);color:#000}
+.leg li{display:flex;gap:12px;align-items:baseline;margin:11px 0;font-weight:600}
+.leg i{flex:none;width:16px;height:16px;transform:translateY(2px)}
+.leg b{font-family:var(--f-loud);font-weight:400;font-size:1.5rem;min-width:4.2ch}
+
+/* Liniendiagramm */
+.chart{background:var(--card);padding:18px 14px 10px;clip-path:var(--chamfer)}
+.chart svg{display:block;width:100%;height:auto}
+.chart .ar{fill:var(--sky);opacity:.28}
+.chart .ln{fill:none;stroke:var(--red);stroke-width:5;stroke-linejoin:round;stroke-linecap:round;stroke-dasharray:1400;stroke-dashoffset:1400;transition:stroke-dashoffset 1.8s ease}
+.in .chart .ln{stroke-dashoffset:0}
+.chart text{font-family:var(--f-house);font-weight:700;font-size:15px;fill:#000}
+.chart .v{font-size:14px;fill:var(--red)}
+
+/* Vorher Nachher */
+.ba{display:grid;gap:8px 16px;align-items:center;grid-template-columns:1fr;background:#1b1b1b;padding:16px 18px;clip-path:var(--chamfer);margin:11px 0}
+.ba .w{font-weight:900;text-transform:uppercase;font-size:.95rem;color:var(--cheesy)}
+.ba .o{color:#ff9aa8;text-decoration:line-through;text-decoration-thickness:2px;font-weight:600}
+.ba .nw{color:var(--green);font-weight:800}
+.ba .st{justify-self:start;font-family:var(--f-hand);text-transform:uppercase;background:var(--gold);color:#000;padding:.05em .6em;font-size:1.05rem;transform:rotate(-2deg)}
+.ba .st.live{background:var(--green)}
+@media(min-width:820px){.ba{grid-template-columns:1.1fr 1.5fr 1.5fr auto}}
+
+/* Tabelle */
+.tbl{width:100%;border-collapse:collapse;margin-top:26px;background:var(--card);color:#000}
+.tbl th,.tbl td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:2px solid rgba(0,0,0,.1);font-size:.95rem}
+.tbl th{font-family:var(--f-hand);text-transform:uppercase;font-weight:400;font-size:1.1rem;background:#000;color:var(--cheesy)}
+.tbl td:first-child{font-weight:900;text-transform:uppercase;font-size:.9rem}
+@media(max-width:720px){.tbl thead{display:none}.tbl,.tbl tbody,.tbl tr,.tbl td{display:block;width:100%}.tbl tr{padding:8px 0;border-bottom:3px solid #000}.tbl td{border:0;padding:3px 14px}}
+
+/* Listen, Chips, Zitat */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{background:#000;color:var(--cheesy);padding:.3em .9em;font-weight:800;font-size:.9rem;text-transform:uppercase;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px))}
+.chip.r{background:var(--red)}.chip.w{background:#fff;color:#000}
+.prio{counter-reset:p;margin-top:24px}
+.prio li{counter-increment:p;display:grid;grid-template-columns:54px 1fr;gap:6px 14px;align-items:start;background:var(--card);padding:14px 18px 14px 14px;margin:10px 0;clip-path:var(--chamfer)}
+.prio li::before{content:counter(p);font-family:var(--f-loud);font-size:2.3rem;line-height:1;color:var(--red);grid-row:span 2}
+.prio b{font-weight:900;text-transform:uppercase;font-size:.98rem;line-height:1.15}
+.prio span{font-size:.93rem}
+.prio em{font-style:normal;font-family:var(--f-hand);text-transform:uppercase;background:#000;color:var(--cheesy);padding:0 .5em;margin-left:6px;font-size:.95rem;white-space:nowrap}
+.say{background:#fff;color:#000;padding:22px 24px;clip-path:var(--chamfer);font-size:clamp(1rem,1.8vw,1.18rem);font-weight:500;line-height:1.55;max-width:70ch}
+.old{font-size:.9rem;color:#555;text-decoration:line-through;text-decoration-thickness:1.5px;max-width:70ch;margin-top:18px}
+.sig{font-family:var(--f-hand);text-transform:uppercase;font-size:clamp(1.4rem,4vw,2.2rem);margin-top:14px;color:var(--head)}
+.brand{height:clamp(46px,8vw,78px);width:auto;margin-bottom:26px}
+.seal{width:clamp(110px,22vw,190px);height:auto;margin-top:26px;transform:rotate(-8deg)}
+
+/* Navigation */
+#pb{position:fixed;top:0;left:0;height:6px;width:0;background:var(--red);z-index:60;transition:width .15s linear}
+#ct{position:fixed;right:14px;bottom:14px;z-index:60;background:#000;color:var(--cheesy);padding:.35em .9em;font-weight:900;font-size:.82rem;letter-spacing:.04em;
+  clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px))}
+#dots{position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:60;display:none;flex-direction:column;gap:8px}
+#dots button{appearance:none;border:2px solid #000;background:var(--cheesy);width:13px;height:13px;padding:0;cursor:pointer;transform:rotate(45deg)}
+#dots button.on{background:var(--red)}
+@media(min-width:900px){#dots{display:flex}}
+
+/* Einblenden */
+.js .rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease;transition-delay:var(--d,0s)}
+.js .in .rv{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto;scroll-snap-type:none}.js .rv{opacity:1;transform:none;transition:none}.fill{width:var(--w);transition:none}.chart .ln{stroke-dashoffset:0;transition:none}}
+@media print{.slide{min-height:auto;break-inside:avoid}#pb,#ct,#dots{display:none}.js .rv{opacity:1;transform:none}.fill{width:var(--w)}.chart .ln{stroke-dashoffset:0}}
+</style>
+</head>
+<body>
+<div id="pb" aria-hidden="true"></div>
+<div id="ct" aria-live="polite">01 / 15</div>
+<nav id="dots" aria-label="Folien"></nav>
+
+<!-- 1 Titel -->
+<section class="slide s-blue" id="f1" aria-label="Titel">
+  <div class="wrap">
+    <img class="brand rv" src="assets/logo/logo-weiss.png" alt="The Pizzary">
+    <span class="k rv" style="--d:.1s">Stand 26.10.2026</span>
+    <h1 class="h big rv" style="--d:.2s">Google<br>Check</h1>
+    <p class="lead rv" style="--d:.3s">The Pizzary, Zimmerstraße 91, Berlin Mitte. Was wir im Google Profil gefunden, analysiert und schon verbessert haben.</p>
+    <p class="hand rv" style="--d:.4s;margin-top:22px;font-size:clamp(1.2rem,3vw,1.8rem);color:#fff">Runterscrollen, 15 Folien</p>
+    <p class="small rv" style="--d:.5s;margin-top:34px">Intern. Enthält Geschäftszahlen, nicht öffentlich teilen.</p>
+  </div>
+</section>
+
+<!-- 2 Ergebnis -->
+<section class="slide s-cheesy" id="f2" aria-label="Das Ergebnis">
+  <div class="wrap">
+    <span class="k rv">Das Ergebnis</span>
+    <h2 class="h rv" style="--d:.1s">Starkes Fundament.<br>Lose Enden.</h2>
+    <p class="lead rv" style="--d:.2s">The Pizzary ist bei Google gut aufgestellt: bestätigtes Profil, 4,7 Sterne, viel Sichtbarkeit. Die Schwächen liegen in Details, die Gäste sofort merken: falsche Zeiten, falsche Angaben, offene Rezensionen und eine Beschreibung, die nicht nach der Marke klingt.</p>
+    <div class="bursts">
+      <div class="burst rv" style="--d:.2s"><div><b>4,7</b><span>Sterne bei 78 Rezensionen</span></div></div>
+      <div class="burst b-red rv" style="--d:.3s"><div><b>31.904</b><span>Profilaufrufe Mai bis Okt</span></div></div>
+      <div class="burst b-sky rv" style="--d:.4s"><div><b>7</b><span>Korrekturen live bei Google</span></div></div>
+    </div>
+    <div class="grid g3">
+      <div class="card good rv" style="--d:.2s"><h3>Läuft gut</h3><ul>
+        <li>Profil bestätigt, 100 %</li><li>95 % der Bewertungen haben 4 oder 5 Sterne</li><li>Website steht bei Google auf Platz 1</li><li>81 % der Rezensionen sind beantwortet</li></ul></div>
+      <div class="card rv" style="--d:.3s"><h3>Muss besser</h3><ul>
+        <li>Zeiten und Attribute stimmten nicht</li><li>Beschreibung generisch und abgeschnitten</li><li>15 Rezensionen offen, eine mit 1 Stern</li><li>Speisekarte nicht direkt in Google</li><li>Letzter Beitrag vom 01.09.</li></ul></div>
+      <div class="card rv" style="--d:.4s"><h3>Jetzt</h3><ul>
+        <li>Sieben Korrekturen sind bei Google live</li><li>Die Reihenfolge der nächsten Schritte steht auf Folie 13</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 Sichtbarkeit -->
+<section class="slide s-base" id="f3" aria-label="Sichtbarkeit">
+  <div class="wrap">
+    <span class="k rv">Sichtbarkeit</span>
+    <h2 class="h rv" style="--d:.1s">31.904 mal gesehen</h2>
+    <p class="lead rv" style="--d:.2s">Zwischen Mai und Oktober 2026 wurde das Profil 31.904 mal aufgerufen. 3.738 Gäste sind danach aktiv geworden: Route, Website, Speisekarte oder Anruf. Das sind 11,7 % der Aufrufe.</p>
+    <div class="split">
+      <div class="chart rv" style="--d:.2s">
+        <svg viewBox="0 0 600 290" role="img" aria-label="Interaktionen pro Monat, Peak im September">
+          <line x1="30" y1="240" x2="580" y2="240" stroke="#000" stroke-width="2"/>
+          <path class="ar" d="M50,240 L50,236 L150,233.6 L250,230.8 L350,187.7 L450,32.1 L550,176.8 L550,240 Z"/>
+          <polyline class="ln" points="50,236 150,233.6 250,230.8 350,187.7 450,32.1 550,176.8"/>
+          <g fill="#BE2337"><circle cx="350" cy="187.7" r="6"/><circle cx="450" cy="32.1" r="6"/><circle cx="550" cy="176.8" r="6"/></g>
+          <text class="v" x="338" y="176" text-anchor="end">ca. 570</text>
+          <text class="v" x="450" y="20" text-anchor="middle">ca. 2.270</text>
+          <text class="v" x="550" y="204" text-anchor="middle">ca. 690</text>
+          <g text-anchor="middle"><text x="50" y="262">Mai</text><text x="150" y="262">Jun</text><text x="250" y="262">Jul</text><text x="350" y="262">Aug</text><text x="450" y="262">Sep</text><text x="550" y="262">Okt</text></g>
+          <text x="300" y="283" text-anchor="middle" style="font-size:12px;font-weight:500">Interaktionen pro Monat, aus dem Google Diagramm gelesen, Okt bis 26.10.</text>
+        </svg>
+      </div>
+      <div>
+        <div class="row rv" style="--d:.1s"><span>Route berechnen</span><div class="track"><div class="fill" style="--w:100%"></div></div><span class="n">1.542</span></div>
+        <div class="row rv" style="--d:.2s"><span>Website Klicks</span><div class="track"><div class="fill" style="--w:96.4%"></div></div><span class="n">1.486</span></div>
+        <div class="row rv" style="--d:.3s"><span>Speisekarte gesehen</span><div class="track"><div class="fill" style="--w:40%"></div></div><span class="n">616</span></div>
+        <div class="row rv" style="--d:.4s"><span>Anrufe</span><div class="track"><div class="fill" style="--w:6.1%"></div></div><span class="n">94</span></div>
+        <div class="row rv" style="--d:.5s"><span>Buchungen</span><div class="track"><div class="fill" style="--w:0%"></div></div><span class="n">0</span></div>
+        <p class="small rv" style="--d:.5s;margin-top:12px">Buchungen gibt es nicht, Reservierungen sind im Profil aus.</p>
+      </div>
+    </div>
+    <div class="chips rv" style="--d:.3s"><span class="chip">Peak im September, erster voller Monat nach der Eröffnung am 28.08.</span><span class="chip r">Oktober bisher deutlich darunter</span></div>
+  </div>
+</section>
+
+<!-- 4 Wo gefunden -->
+<section class="slide s-green" id="f4" aria-label="Wo sie euch finden">
+  <div class="wrap">
+    <span class="k rv">Wo sie euch finden</span>
+    <h2 class="h rv" style="--d:.1s">93 % über Google Maps am Handy</h2>
+    <div class="split">
+      <div class="donut rv" style="--d:.2s" role="img" aria-label="93 Prozent der Aufrufe kommen über Google Maps auf dem Handy"></div>
+      <div>
+        <ul class="leg rv" style="--d:.3s">
+          <li><i style="background:#BE2337"></i><b>93 %</b><span>29.741 Aufrufe, Google Maps am Handy</span></li>
+          <li><i style="background:#FFC31E"></i><b>4 %</b><span>1.250 Aufrufe, Google Suche am Handy</span></li>
+          <li><i style="background:#7D82D9"></i><b>1 %</b><span>471 Aufrufe, Google Suche am Computer</span></li>
+          <li><i style="background:#000"></i><b>1 %</b><span>442 Aufrufe, Google Maps am Computer</span></li>
+        </ul>
+        <p class="lead rv" style="--d:.4s;margin-top:18px">Wer euch findet, steht meist schon in der Nähe und schaut aufs Handy. Das Maps Profil ist das Schaufenster. Es muss in Sekunden überzeugen: Zeiten, Fotos, Speisekarte, Bewertungen.</p>
+        <p class="small rv" style="--d:.5s;margin-top:10px">17.578 Suchen haben das Profil in den Ergebnissen gezeigt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 Suchbegriffe -->
+<section class="slide s-pink" id="f5" aria-label="Suchbegriffe">
+  <div class="wrap">
+    <span class="k rv">Wonach gesucht wird</span>
+    <h2 class="h rv" style="--d:.1s">Meist nur:<br>restaurants</h2>
+    <div class="split" style="align-items:start">
+      <div>
+        <div class="row hot rv" style="--d:.1s"><span>restaurants</span><div class="track"><div class="fill" style="--w:100%"></div></div><span class="n">11.144</span></div>
+        <div class="row rv" style="--d:.15s"><span>the pizzary, zimmerstraße, berlin</span><div class="track"><div class="fill" style="--w:17.5%"></div></div><span class="n">1.950</span></div>
+        <div class="row rv" style="--d:.2s"><span>pizza</span><div class="track"><div class="fill" style="--w:13.4%"></div></div><span class="n">1.489</span></div>
+        <div class="row rv" style="--d:.25s"><span>zum mitnehmen</span><div class="track"><div class="fill" style="--w:5.7%"></div></div><span class="n">632</span></div>
+        <div class="row rv" style="--d:.3s"><span>the pizzary</span><div class="track"><div class="fill" style="--w:4.5%"></div></div><span class="n">505</span></div>
+        <div class="row rv" style="--d:.35s"><span>restaurant</span><div class="track"><div class="fill" style="--w:2.6%"></div></div><span class="n">292</span></div>
+        <div class="row rv" style="--d:.4s"><span>lunch</span><div class="track"><div class="fill" style="--w:2.2%"></div></div><span class="n">244</span></div>
+        <div class="row rv" style="--d:.45s"><span>pizzary</span><div class="track"><div class="fill" style="--w:2.1%"></div></div><span class="n">231</span></div>
+      </div>
+      <div>
+        <div class="card rv" style="--d:.2s"><h3>63 % sind das Wort restaurants</h3><p>Das ist Laufkundschaft rund um Checkpoint Charlie, keine Markensuche. Gute Nachricht: Das Profil wird dort angezeigt. Entscheidend ist, was Gäste dann sehen.</p></div>
+        <div class="card rv" style="--d:.3s;margin-top:14px"><h3>Mindestens 16 % kennen den Namen schon</h3><p>So viele der Suchen nennen The Pizzary oder die Adresse direkt. Diese Gäste kommen gezielt, für sie zählen Zeiten und Speisekarte.</p></div>
+        <div class="card rv" style="--d:.4s;margin-top:14px"><h3>Idee: Wilde Aparthotel</h3><p>44 Suchen verbinden die Adresse mit dem Wilde Aparthotel, ein Gast schreibt, er nimmt die Pizza mit aufs Zimmer. Eine Karte oder ein QR Code an der Rezeption könnte sich lohnen.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 Rezensionen -->
+<section class="slide s-base" id="f6" aria-label="Rezensionen">
+  <div class="wrap">
+    <span class="k rv">Rezensionen</span>
+    <h2 class="h rv" style="--d:.1s">4,7 Sterne</h2>
+    <div class="split" style="align-items:start">
+      <div>
+        <div class="row rv" style="--d:.1s"><span>5 Sterne</span><div class="track"><div class="fill" style="--w:100%"></div></div><span class="n">65</span></div>
+        <div class="row rv" style="--d:.15s"><span>4 Sterne</span><div class="track"><div class="fill" style="--w:15.4%"></div></div><span class="n">10</span></div>
+        <div class="row rv" style="--d:.2s"><span>3 Sterne</span><div class="track"><div class="fill" style="--w:3.1%"></div></div><span class="n">2</span></div>
+        <div class="row rv" style="--d:.25s"><span>2 Sterne</span><div class="track"><div class="fill" style="--w:0%"></div></div><span class="n">0</span></div>
+        <div class="row hot rv" style="--d:.3s"><span>1 Stern</span><div class="track"><div class="fill" style="--w:3.1%"></div></div><span class="n">2</span></div>
+        <p class="small rv" style="--d:.35s;margin-top:12px">79 Bewertungen geladen, Google zeigt 78.</p>
+      </div>
+      <div class="grid g2" style="margin-top:0">
+        <div class="stat rv" style="--d:.2s"><b>95 %</b><span>geben 4 oder 5 Sterne</span></div>
+        <div class="stat rv" style="--d:.3s"><b>64 / 79</b><span>sind beantwortet</span></div>
+        <div class="stat rv" style="--d:.4s"><b>15</b><span>sind noch offen</span></div>
+        <div class="stat rv" style="--d:.5s"><b>2</b><span>Bewertungen mit 1 Stern</span></div>
+      </div>
+    </div>
+    <div class="card rv" style="--d:.3s;margin-top:26px"><h3>Zum Vergleich in der Nähe</h3><p>Laut Google Maps (Wird auch oft gesucht): Pizza Berlino 4,9 bei 612 Bewertungen, Pizza Pasta Point 61 mit 4,8 bei 74. The Pizzary liegt mit 4,7 sehr gut, hat aber noch wenig Masse.</p></div>
+  </div>
+</section>
+
+<!-- 7 Lob -->
+<section class="slide s-cheesy" id="f7" aria-label="Was Gäste feiern">
+  <div class="wrap">
+    <span class="k rv">Was Gäste feiern</span>
+    <h2 class="h rv" style="--d:.1s">Geschmack,<br>Konzept, Team</h2>
+    <p class="lead rv" style="--d:.2s">Die Texte der Rezensionen kommen immer auf dieselben fünf Dinge zurück.</p>
+    <div class="grid g3">
+      <div class="card good rv" style="--d:.1s"><h3>Die Pizza</h3><p>Knusprig, heiß, frisch gebacken. Mehrfach wird die Salami Pizza hervorgehoben.</p></div>
+      <div class="card good rv" style="--d:.2s"><h3>Das Konzept</h3><p>Eigene Pizza am Terminal zusammenstellen und dem Pizzabäcker beim Backen zusehen.</p></div>
+      <div class="card good rv" style="--d:.3s"><h3>Das Team</h3><p>Freundlich, schnell, hilfsbereit. Ein Gast beschreibt, wie ein Mitarbeiter einem Kind beim Bestellen half.</p></div>
+      <div class="card good rv" style="--d:.4s"><h3>Der Laden</h3><p>Sauber, cooles Branding, schöne Pizzakartons.</p></div>
+      <div class="card good rv" style="--d:.5s"><h3>Die Auswahl</h3><p>Viele Toppings, vegetarische und vegane Optionen, Halal wird erwähnt.</p></div>
+      <div class="card rv" style="--d:.6s"><h3>Auffällig</h3><p>Viele neue Bewertungen kommen auf Englisch und Spanisch. Touristen am Checkpoint Charlie sind eine eigene Zielgruppe.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 Kritik -->
+<section class="slide s-red" id="f8" aria-label="Was Gäste kritisieren">
+  <div class="wrap">
+    <span class="k rv">Was Gäste kritisieren</span>
+    <h2 class="h rv" style="--d:.1s">Menge und<br>Erwartung</h2>
+    <p class="lead rv" style="--d:.2s">Kritik gibt es selten, aber sie ist konkret. Die meisten Punkte lassen sich lösen, ohne das Konzept anzufassen.</p>
+    <div class="grid g3">
+      <div class="card rv" style="--d:.1s"><h3>Belag im Verhältnis zum Preis</h3><p>Mehrere Gäste mit 3 und 4 Sternen: wenig Belag, eher Snack, ein Gast sagt Flammkuchen. Einer wundert sich, dass der Preis bei weniger Zutaten gleich bleibt.</p><ul style="margin-top:8px"><li>Standardmenge prüfen und auf dem Terminal als Foto zeigen</li></ul></div>
+      <div class="card rv" style="--d:.2s"><h3>Instagram weckt andere Erwartung</h3><p>Ein Gast dachte, er belegt die Pizza selbst in der Küche.</p><ul style="margin-top:8px"><li>Wording: Du baust sie am Terminal, wir backen sie in 180 Sekunden</li></ul></div>
+      <div class="card rv" style="--d:.3s"><h3>Backqualität und Hitze</h3><p>Kruste teils schwarz, im Laden sehr warm. Eine Salami wirkte lasch.</p><ul style="margin-top:8px"><li>Ofen und Lüftung im Auge behalten</li></ul></div>
+      <div class="card rv" style="--d:.4s"><h3>Thermo Bon Aufkleber</h3><p>Eine Gästin fragt, ob der Aufkleber auf der Papierunterlage gesundheitlich unbedenklich ist.</p><ul style="margin-top:8px"><li>Prüfen, ob er Kontakt zum Essen hat, und öffentlich antworten</li></ul></div>
+      <div class="card rv" style="--d:.5s"><h3>Salat mit Hähnchen</h3><p>1 Stern, mit Foto: nur zwei kleine Stücke Hähnchen. Noch unbeantwortet.</p><ul style="margin-top:8px"><li>Zuerst antworten, Portion prüfen</li></ul></div>
+      <div class="card rv" style="--d:.6s"><h3>Nur Karte, Wartezeit, Zutaten</h3><p>Ein Gast musste Bargeld abgeben lassen, ein anderer wartete vor Ort lange und vermisste Meeresfrüchte.</p><ul style="margin-top:8px"><li>Kartenpflicht steht jetzt in der Beschreibung</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 Antworten -->
+<section class="slide s-base" id="f9" aria-label="Antworten auf Rezensionen">
+  <div class="wrap">
+    <span class="k rv">Antworten</span>
+    <h2 class="h rv" style="--d:.1s">81 % beantwortet,<br>drei Tonlagen</h2>
+    <div class="grid g3">
+      <div class="card rv" style="--d:.1s"><h3>Förmlich mit Sie</h3><p>Lange Textbausteine, am Ende immer der Satz, man hoffe, die Gäste bald wieder zu begrüßen. Wirkt formelhaft.</p></div>
+      <div class="card rv" style="--d:.2s"><h3>Locker mit du</h3><p>Persönlich, teils mit Tippfehlern. Passt zur Marke, wirkt aber unfertig.</p></div>
+      <div class="card rv" style="--d:.3s"><h3>Mehrsprachig</h3><p>Antworten auf Französisch, Polnisch, Spanisch und Englisch. Das ist stark, aber auch hier fehlt ein einheitlicher Ton.</p></div>
+    </div>
+    <div class="split" style="align-items:start;margin-top:34px">
+      <div>
+        <h3 class="hand rv" style="font-size:1.5rem;margin-bottom:10px">Empfehlung</h3>
+        <ul class="card good rv" style="--d:.1s;padding:22px"><li>Ein Ton für alle: du, kurz, mit Namen</li><li>Bei Kritik: Entschuldigung, konkrete Zusage, Einladung zum Schreiben</li><li>Die 1 Stern Bewertung zum Salat zuerst, dann die 14 übrigen offenen</li></ul>
+      </div>
+      <div>
+        <h3 class="hand rv" style="font-size:1.5rem;margin-bottom:10px">Entwurf für den Salat (nicht veröffentlicht)</h3>
+        <p class="say rv" style="--d:.2s">Hey, das tut uns leid. So soll ein Salat bei uns nicht ankommen. Schreib uns kurz, welcher es war, wir schauen uns die Hähnchenmenge direkt an. Dein Team von The Pizzary</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 Verknüpfungen -->
+<section class="slide s-blue" id="f10" aria-label="Verknüpfungen">
+  <div class="wrap">
+    <span class="k rv">Verknüpfungen</span>
+    <h2 class="h rv" style="--d:.1s">Was an was hängt</h2>
+    <table class="tbl rv" style="--d:.2s">
+      <thead><tr><th>Verknüpfung</th><th>Stand</th><th>Bewertung</th></tr></thead>
+      <tbody>
+        <tr><td>Website</td><td>thepizzary.de, bei Google auf Platz 1 mit Unterseiten</td><td>Verknüpft, aber ohne Strukturdaten, Maps Link und Öffnungszeiten</td></tr>
+        <tr><td>Speisekarte</td><td>Externer Link auf thepizzary.online-karte.com</td><td>Keine Speisekarte direkt in Google, 616 Gäste haben sie gesehen</td></tr>
+        <tr><td>Instagram</td><td>@the_pizzary im Profil verlinkt</td><td>In Ordnung</td></tr>
+        <tr><td>Google Ads</td><td>Konto seit 01.04.2026 mit allen Standorten verknüpft</td><td>Es scheint keine Kampagne zu laufen, in Ads selbst nicht geprüft</td></tr>
+        <tr><td>Lieferplattformen</td><td>Uber Eats, Wolt und Lieferando erscheinen in der Google Suche</td><td>Keine Bestell Links im Profil, Lieferando bewirbt den Markennamen mit einer Anzeige</td></tr>
+      </tbody>
+    </table>
+    <div class="grid g2">
+      <div class="card good rv" style="--d:.2s"><h3>Website ist in Ordnung bei</h3><ul><li>Titel und Beschreibung passen</li><li>Impressum und Datenschutz vorhanden</li><li>Mobil nutzbar</li></ul></div>
+      <div class="card rv" style="--d:.3s"><h3>Website fehlt</h3><ul><li>Strukturdaten für Restaurant (Schema.org)</li><li>Maps Link, Telefon, Hausnummer, Öffnungszeiten</li><li>Links zu den Lieferplattformen, sie stehen nur als Text</li><li>robots.txt und sitemap.xml geben 404</li><li>Analytics nicht gefunden, kann hinter dem Consent Banner liegen</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 Vorher Nachher -->
+<section class="slide s-ink" id="f11" aria-label="Was wir verbessert haben">
+  <div class="wrap">
+    <span class="k rv">Was wir verbessert haben</span>
+    <h2 class="h rv" style="--d:.1s">7 Korrekturen</h2>
+    <p class="lead rv" style="--d:.2s">Alles am 26.10.2026 im Google Profil geändert und danach im Profil kontrolliert. Alle sieben Änderungen sind live.</p>
+    <div style="margin-top:24px">
+      <div class="ba rv"><span class="w">Öffnungszeiten, alle Tage</span><span class="o">11:30 bis 22:00</span><span class="nw">11:30 bis 22:30</span><span class="st live" data-s="1">live</span></div>
+      <div class="ba rv"><span class="w">Zum Mitnehmen, alle Tage</span><span class="o">11:30 bis 22:00</span><span class="nw">11:30 bis 22:30</span><span class="st live" data-s="2">live</span></div>
+      <div class="ba rv"><span class="w">Lieferservice, Freitag</span><span class="o">00:30 bis 21:45</span><span class="nw">11:30 bis 22:15</span><span class="st live" data-s="3">live</span></div>
+      <div class="ba rv"><span class="w">Lieferservice, übrige Tage</span><span class="o">11:30 bis 21:45</span><span class="nw">11:30 bis 22:15</span><span class="st live" data-s="4">live</span></div>
+      <div class="ba rv"><span class="w">Attribut Lieferdienst</span><span class="o">Nein</span><span class="nw">Ja, passend zu Zeiten und Plattformen</span><span class="st live" data-s="5">live</span></div>
+      <div class="ba rv"><span class="w">Attribut Salatbar</span><span class="o">Ja</span><span class="nw">Nein, es gibt Salate, aber keine Salatbar</span><span class="st live" data-s="6">live</span></div>
+      <div class="ba rv"><span class="w">Beschreibung</span><span class="o">Allgemeiner Text, bricht mitten im Satz ab</span><span class="nw">Neuer Text, siehe nächste Folie</span><span class="st live" data-s="7">live</span></div>
+    </div>
+    <p class="small rv" style="margin-top:14px">Die Lieferzeit bis 22:15 ist eine Annahme, 15 Minuten vor Ladenschluss wie bisher. Bitte mit den Plattformen abgleichen.</p>
+  </div>
+</section>
+
+<!-- 12 Beschreibung -->
+<section class="slide s-cheesy" id="f12" aria-label="Neue Beschreibung">
+  <div class="wrap">
+    <span class="k rv">Neue Beschreibung</span>
+    <h2 class="h rv" style="--d:.1s">Klingt jetzt<br>nach The Pizzary</h2>
+    <p class="say rv" style="--d:.2s;margin-top:10px">Deine Pizza. Deine Regeln. Bei The Pizzary baust du deine Pizza am Terminal selbst zusammen: Boden, Soße, Käse und Toppings. Oder du nimmst eine der 8 Signature Pizzen. Der Teig wird bei uns im Laden gemacht und ruht mindestens 24 Stunden. Deine Pizza ist in rund 180 Sekunden fertig, und du siehst zu, wie sie gebacken wird. Es gibt vegetarische und vegane Optionen. Wir sind an der Zimmerstraße in Berlin Mitte, ein paar Schritte vom Checkpoint Charlie. Bestellt wird am Terminal, bezahlt wird nur mit Karte, Bargeld geht nicht. Zum Hier essen oder Mitnehmen, täglich von 11:30 bis 22:30 Uhr.</p>
+    <p class="old rv" style="--d:.3s">Vorher: Was als eine einzige Vision begann, ist zu The Pizzary herangewachsen, einem Zuhause für außergewöhnlichen Genuss in Berlin. Jeder Standort ist so gestaltet, dass er sein Viertel widerspiegelt … Hommage an d</p>
+    <div class="chips rv" style="--d:.4s"><span class="chip">594 von 750 Zeichen</span><span class="chip">Du Ton</span><span class="chip">Kartenpflicht genannt</span><span class="chip">Zeiten genannt</span></div>
+  </div>
+</section>
+
+<!-- 13 Noch offen -->
+<section class="slide s-green" id="f13" aria-label="Noch offen">
+  <div class="wrap">
+    <span class="k rv">Noch offen</span>
+    <h2 class="h rv" style="--d:.1s">Die nächsten<br>Schritte</h2>
+    <ul class="prio">
+      <li class="rv" style="--d:.05s"><b>15 Rezensionen beantworten</b><span>Die 1 Stern Bewertung zum Salat zuerst, alle im du Ton. Entwürfe können vorbereitet werden.<em>Nader und Steve</em></span></li>
+      <li class="rv" style="--d:.1s"><b>Speisekarte direkt in Google</b><span>Gerichte, Preise und Fotos im Profil pflegen statt nur den externen Link.</span></li>
+      <li class="rv" style="--d:.15s"><b>Wieder posten und Angebote setzen</b><span>Der letzte Beitrag ist vom 01.09. Mittagsangebot und Menü Allet drin eignen sich als Google Angebot.</span></li>
+      <li class="rv" style="--d:.2s"><b>Fotos ergänzen</b><span>Google empfiehlt Innenaufnahmen. Dazu aktuelle Fotos der Standard Pizza mit Belag.</span></li>
+      <li class="rv" style="--d:.25s"><b>Bewertungslink und QR Code</b><span>Am Terminal und auf dem Pizzakarton, ohne Gegenleistung.</span></li>
+      <li class="rv" style="--d:.3s"><b>Bestell Links im Profil</b><span>Uber Eats, Wolt und Lieferando als bevorzugte Anbieter setzen.</span></li>
+      <li class="rv" style="--d:.35s"><b>Website ergänzen</b><span>Schema.org, Maps Link, Telefon, Hausnummer, Zeiten, Plattform Links, sitemap.xml.</span></li>
+      <li class="rv" style="--d:.4s"><b>Mit Steve klären</b><span>Gehen Apple Pay und Google Pay am Terminal? Wie wird Halal formuliert? Hausnummer 91 bestätigen. Spätschicht im Handbuch auf Ladenschluss 22:30 anpassen.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 14 Aufpassen und Grenzen -->
+<section class="slide s-pink" id="f14" aria-label="Aufpassen und Grenzen">
+  <div class="wrap">
+    <span class="k rv">Aufpassen und Grenzen</span>
+    <h2 class="h rv" style="--d:.1s">Was Google<br>kippen kann</h2>
+    <div class="grid g2">
+      <div class="card rv" style="--d:.1s"><h3>Bewertungen gegen Gegenleistung</h3><p>Zwei Rezensionen erwähnen kostenlose Pizza. Google verbietet Bewertungen im Tausch gegen Vorteile und kann sie entfernen. Künftig nur ehrlich fragen, ohne Geschenk.</p></div>
+      <div class="card rv" style="--d:.2s"><h3>Bewertung der Website Agentur</h3><p>Eine 5 Sterne Bewertung stammt von der Agentur der Website und sagt selbst, sie könne noch nichts zur Pizza sagen. Auch das kann gelöscht werden.</p></div>
+    </div>
+    <div class="card good rv" style="--d:.3s;margin-top:18px"><h3>Grenzen dieser Prüfung</h3><ul>
+      <li>Nicht geprüft: Fotos, Fragen und Antworten, wer Zugriff auf das Profil hat, Kampagnen in Google Ads</li>
+      <li>Die Monatswerte der Interaktionen sind aus dem Google Diagramm gelesen und daher ungefähr</li>
+      <li>Wettbewerber Zahlen stammen aus dem Abschnitt Wird auch oft gesucht in Google Maps</li>
+      <li>Ob Apple Pay und Google Pay am Terminal gehen, ist ungeklärt, deshalb blieb das Zahlungsattribut unverändert</li></ul></div>
+  </div>
+</section>
+
+<!-- 15 Schluss -->
+<section class="slide s-blue" id="f15" aria-label="Schluss">
+  <div class="wrap">
+    <img class="brand rv" src="assets/logo/logo-weiss.png" alt="The Pizzary">
+    <h2 class="h big rv" style="--d:.1s">Deine Pizza.<br>Deine Regeln.</h2>
+    <p class="lead rv" style="--d:.2s">Das Profil hat das Fundament. Mit richtigen Zeiten, ehrlichen Angaben und schnellen Antworten wird aus dem Schaufenster ein Verkäufer.</p>
+    <p class="sig rv" style="--d:.3s">Nächster Schritt: Antworten, Speisekarte, Beitrag</p>
+    <img class="seal rv" style="--d:.4s" src="assets/logo/siegel-hell.svg" alt="">
+  </div>
+</section>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var pb=document.getElementById('pb'),ct=document.getElementById('ct'),dots=document.getElementById('dots');
+  var n=slides.length,cur=0;
+  function pad(x){return x<10?'0'+x:''+x}
+  slides.forEach(function(s,i){
+    var b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Folie '+(i+1));
+    b.addEventListener('click',function(){go(i)});dots.appendChild(b);
+  });
+  function mark(i){
+    cur=i;ct.textContent=pad(i+1)+' / '+n;
+    [].forEach.call(dots.children,function(d,k){d.classList.toggle('on',k===i)});
+  }
+  function go(i){i=Math.max(0,Math.min(n-1,i));slides[i].scrollIntoView({behavior:'smooth',block:'start'})}
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in')}});
+    },{threshold:0,rootMargin:'0px 0px -12% 0px'});
+    slides.forEach(function(s){io.observe(s)});
+  }else{slides.forEach(function(s){s.classList.add('in')})}
+  function prog(){
+    var h=document.documentElement,max=h.scrollHeight-h.clientHeight;
+    pb.style.width=(max>0?(h.scrollTop/max*100):0)+'%';
+    var line=window.innerHeight*.4,idx=0;
+    for(var i=0;i<n;i++){if(slides[i].getBoundingClientRect().top<=line)idx=i}
+    if(idx!==cur)mark(idx);
+  }
+  window.addEventListener('scroll',prog,{passive:true});window.addEventListener('resize',prog);prog();mark(0);
+  document.addEventListener('keydown',function(e){
+    if(e.metaKey||e.ctrlKey||e.altKey)return;
+    var k=e.key;
+    if(k==='ArrowRight'){e.preventDefault();go(cur+1)}
+    else if(k==='ArrowLeft'){e.preventDefault();go(cur-1)}
+  });
+})();
+</script>
+</body>
+</html>
